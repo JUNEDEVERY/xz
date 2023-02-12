@@ -1,0 +1,94 @@
+﻿<Page x:Class="Z.pages.main"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Z.pages"
+      mc:Ignorable="d" 
+      Background="White"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="main">
+    <Page.Resources>
+        <BitmapImage x:Key="noPhoto" UriSource="../Resources/picture.png"></BitmapImage>
+    </Page.Resources>
+    <Grid  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+       
+     
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal" Height="50">
+            <GroupBox Header="Поисковая строка" >
+                <TextBox Name="tbSearch" TextChanged="tbSearch_TextChanged"/>
+            </GroupBox>
+           
+            <GroupBox Header="Фильтрация по типу материала">
+                <ComboBox Name="cmbFiltres" SelectionChanged="cmbSorted_SelectionChanged" >
+                    
+                </ComboBox>
+            </GroupBox>
+            <GroupBox Header="Сортировка материала">
+                <ComboBox Name="cmbSorted" SelectionChanged="cmbSorted_SelectionChanged">
+                    <ComboBoxItem IsSelected="True">По умолчанию</ComboBoxItem>
+                    <ComboBoxItem>По возрастанию наименования</ComboBoxItem>
+                    <ComboBoxItem>По убыванию наименования</ComboBoxItem>
+                    <ComboBoxItem>По возрастанию номера производственного цеха</ComboBoxItem>
+                    <ComboBoxItem>По убыванию номера производственного цеха</ComboBoxItem>
+                    <ComboBoxItem>По возрастанию минимальной стоимости для агента</ComboBoxItem>
+                    <ComboBoxItem>По убыванию минимальной стоимости для агента</ComboBoxItem>
+                </ComboBox>
+            </GroupBox>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left"  Grid.Row="0">
+            <TextBlock Name="tbCount"></TextBlock>
+          
+        </StackPanel>
+        <ListView Name="lvMaterial" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Row="2" Height="300" Width="799">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="1">
+
+                        <Grid  HorizontalAlignment="Center" VerticalAlignment="Center" >
+       
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                       
+                        </Grid.ColumnDefinitions>
+                           
+                                <StackPanel Grid.Column="0" Grid.Row="1" >
+                                    <Image  Name="img" Source="{Binding Image, TargetNullValue={StaticResource noPhoto}}" Width="150" Height="150"></Image>
+
+                                </StackPanel>
+                                <StackPanel  Grid.Column='1' Grid.Row="0" Orientation="Horizontal">
+                                    <TextBlock Name="tbTypeProduct" Text="{Binding ProductType.Title}"></TextBlock>
+                                    <TextBlock Text="|"></TextBlock>
+                                    <TextBlock Name="tbTitle" Text="{Binding Title}"></TextBlock>
+                                   
+                                    <TextBlock Text="                                                  "> </TextBlock>
+                                    <TextBlock Name="tbCost" Text="{Binding Material.Cost, StringFormat={}{0:g} рублей}" ></TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1">
+                                <TextBlock Name="tbArticule" Text="{Binding Product.ArticleNumber}"> артикул - </TextBlock>
+                                </StackPanel>
+                            <WrapPanel Grid.Row="2" Grid.Column="1">
+                                <TextBlock Text="{Binding Material.Title, StringFormat={}{0:}}"></TextBlock>
+                            </WrapPanel>
+                            
+                            
+
+                    </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
